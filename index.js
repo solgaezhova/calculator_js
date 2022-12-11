@@ -3,69 +3,101 @@ const subtract = (a, b) => a - b;
 const multiply = (a, b) => a * b;
 const divide = (a, b) => a / b;
 
-const calculator = document.querySelector(".calculator");
-const display = calculator.querySelector(".calculator-display");
-const keyButtons = calculator.querySelector(".calculator-keys");
+const calculator = document.querySelector('.calculator');
+const display = calculator.querySelector('.calculator-display');
+const keyButtons = calculator.querySelector('.calculator-keys');
 
 const operate = (operator, num1, num2) => {
     let result;
-    if (operator === "add") {
+    if (operator === 'add') {
         result = add(+num1, +num2);
     }
-    if (operator === "subtract") {
+    if (operator === 'subtract') {
         result = subtract(+num1, +num2);
     }
-    if (operator === "multiply") {
+    if (operator === 'multiply') {
         result = multiply(+num1, +num2);
     }
-    if (operator === "divide") {
+    if (operator === 'divide') {
         result = divide(+num1, +num2);
     }
-    return result;
+    return Math.round(result*1000)/1000;
 }
 
-keyButtons.addEventListener("click", e => {
-    const key = e.target; // <button>
-    const action = key.dataset.action; // operator, number, or equal
-    const keyContent = key.textContent; // button content
-    const displayValue = display.textContent; // number on display
-    const previousKeyType = calculator.dataset.previousKeyType; // previous key type
+keyButtons.addEventListener('click', e => {
 
-    console.log('key: ' + key)
-    console.log('action: ' + action)
-    console.log('keyContent: ' + keyContent)
-    console.log('displayValue: ' + displayValue)
-    console.log('previousKeyType: ' + previousKeyType)
+    const key = e.target;
+    const action = key.dataset.action;
+    const keyContent = key.textContent;
+    const displayedValue = display.textContent;
+    const lastKeyType = calculator.dataset.lastKeyType;
 
     if (!action) {
-        if (displayValue === '0' || previousKeyType === 'operator') {
+        if (
+            displayedValue === '0' ||
+            lastKeyType === 'operator' ||
+            lastKeyType === 'calculate'
+        ) {
             display.textContent = keyContent;
         } else {
-            display.textContent = displayValue + keyContent;
+            display.textContent = displayedValue + keyContent;
         }
+        calculator.dataset.lastKeyType = 'number';
     }
 
-    if (action === 'add' || action === 'subtract' ||
-        action === 'multiply' || action === 'divide') {
+    if (
+        action === 'add' ||
+        action === 'subtract' ||
+        action === 'multiply' ||
+        action === 'divide'
+    ) {
+        const firstValue = calculator.dataset.firstValue;
+        const operator = calculator.dataset.operator;
+        const secondValue = displayedValue;
 
-        calculator.dataset.previousKeyType = 'operator';
-        calculator.dataset.firstValue = displayValue;
+        if (
+            firstValue &&
+            operator &&
+            lastKeyType !== 'operator' &&
+            lastKeyType !== 'calculate'
+        ) {
+            const calculatedValue = operate(operator, firstValue, secondValue);
+            display.textContent = calculatedValue;
+            calculator.dataset.firstValue = calculatedValue;
+        } else {
+            calculator.dataset.firstValue = displayedValue;
+        }
+
+        calculator.dataset.lastKeyType = 'operator';
         calculator.dataset.operator = action;
     }
 
     if (action === 'clear') {
+
+        calculator.dataset.firstValue = '';
+        calculator.dataset.previousSecondValue = '';
+        calculator.dataset.operator = '';
+        calculator.dataset.lastKeyType = '';
+
         display.textContent = 0;
+        calculator.dataset.lastKeyType = 'clear';
     }
 
     if (action === 'calculate') {
-        const firstValue = calculator.dataset.firstValue;
-        const secondValue = displayValue;
+        let firstValue = calculator.dataset.firstValue;
         const operator = calculator.dataset.operator;
+        let secondValue = displayedValue;
 
-        display.textContent = operate(operator, firstValue, secondValue);
+        if (firstValue) {
+            if (lastKeyType === 'calculate') {
+                firstValue = displayedValue;
+                secondValue = calculator.dataset.previousSecondValue;
+            }
+
+            display.textContent = operate(operator, firstValue, secondValue);
+        }
+
+        calculator.dataset.previousSecondValue = secondValue;
+        calculator.dataset.lastKeyType = 'calculate';
     }
 })
-
-
-
-

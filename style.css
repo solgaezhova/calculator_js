@@ -15,10 +15,10 @@ button {
 }
 
 .calculator {
-    width: 350px;
-    background-color: black;
-    padding: 1rem;
-    border-radius: 5%;
+  width: 350px;
+  background-color: black;
+  padding: 1rem;
+  border-radius: 5%;
 }
 
 .calculator-display {
@@ -36,15 +36,15 @@ button {
 }
 
 button {
-    border-radius: 20%;
-    margin: 0.4rem;
-    border-style: none;
-    background-color: rgb(208, 208, 208);
+  border-radius: 20%;
+  margin: 0.4rem;
+  border-style: none;
+  background-color: rgb(208, 208, 208);
 }
 
 button:hover {
-    opacity: 0.8;
-    transform: scale(1.05);
+  opacity: 0.8;
+  transform: scale(1.05);
 }
 
 .key-operator {
@@ -59,14 +59,14 @@ button:hover {
 }
 
 .key-clear {
-    grid-column: 2 / span 2;
-    background-color: rgb(163, 247, 190);
+  grid-column: 2 / span 2;
+  background-color: rgb(163, 247, 190);
 }
 
 .key-operator:hover, .key-clear:hover, .key-number:hover {
-    transform: scale(1.1);
+  transform: scale(1.1);
 }
 
 .key-equal:hover {
-    transform: scale(1.05);
+  transform: scale(1.05);
 }
