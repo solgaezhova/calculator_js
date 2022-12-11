@@ -1,7 +1,7 @@
-const add = (a, b) => a+b;
-const subtract = (a, b) => a-b;
-const multiply = (a, b) => a*b;
-const divide = (a, b) => a/b;
+const add = (a, b) => a + b;
+const subtract = (a, b) => a - b;
+const multiply = (a, b) => a * b;
+const divide = (a, b) => a / b;
 
 const calculator = document.querySelector(".calculator");
 const display = calculator.querySelector(".calculator-display");
@@ -11,13 +11,13 @@ const operate = (operator, num1, num2) => {
     let result;
     if (operator === "add") {
         result = add(+num1, +num2);
-    } 
+    }
     if (operator === "subtract") {
         result = subtract(+num1, +num2);
-    } 
+    }
     if (operator === "multiply") {
         result = multiply(+num1, +num2);
-    } 
+    }
     if (operator === "divide") {
         result = divide(+num1, +num2);
     }
