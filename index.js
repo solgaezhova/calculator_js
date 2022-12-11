@@ -77,8 +77,6 @@ keyButtons.addEventListener('click', e => {
         calculator.dataset.firstValue = '';
         calculator.dataset.previousSecondValue = '';
         calculator.dataset.operator = '';
-        calculator.dataset.lastKeyType = '';
-
         display.textContent = 0;
         calculator.dataset.lastKeyType = 'clear';
     }
