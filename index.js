@@ -21,7 +21,7 @@ const operate = (operator, num1, num2) => {
     if (operator === 'divide') {
         result = divide(+num1, +num2);
     }
-    return Math.round(result*1000)/1000;
+    return Math.round(result*10000)/10000;
 }
 
 keyButtons.addEventListener('click', e => {
