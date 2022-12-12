@@ -12,6 +12,7 @@ body {
 
 button {
   font-size: 3rem;
+  cursor: pointer;
 }
 
 .calculator {
